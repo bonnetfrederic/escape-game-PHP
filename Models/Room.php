@@ -34,6 +34,16 @@ class Room {
     {
         return ucfirst(strtolower($this->name));
     }
+	public function getDescription(): string
+	{
+		return $this->description;
+	}
+	
+	public function getNiveau() 
+	{
+		return $this->niveau;
+	}
+	
     public function setName(string $value)
     {
         $this->name = ucfirst(strtolower($value));

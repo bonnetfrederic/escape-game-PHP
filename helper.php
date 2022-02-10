@@ -33,7 +33,7 @@ function getRoomsFromDB(): array
 		(int)$row['max_player']
 		);
 		
-		$array_rooms[] = $room->toArray();
+		$array_rooms[$row['id']] = $room->toArray();
 		//array_push($array_rooms, $room->toArray());
 	}
 	return $array_rooms;

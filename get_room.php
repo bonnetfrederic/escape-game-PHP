@@ -10,13 +10,24 @@ $room = findRoomById($room_id);
 if($room === null){
 	header("Location: 404.html");
 }
+
+if ($room->getNiveau() == 'Facile') {
+	$classLevel = 'level-easy';
+} else if($room->getNiveau() == 'Normal') {
+	$classLevel = 'level-normal';
+} else {
+	$classLevel = 'level-difficult';
+}
+ 
+$rooms = getRoomsFromDB();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
   <link rel="stylesheet" href="https://domenc-m.github.io/hackaton_team_1/src/assets/css/reset.css">
-  <link rel="stylesheet" href="https://domenc-m.github.io/hackaton_team_1/src/assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="https://domenc-m.github.io/hackaton_team_1/src/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://domenc-m.github.io/hackaton_team_1/src/assets/lib/fontawesome-free-5.15.4-web/css/all.min.css">
   <meta charset="UTF-8">
@@ -56,10 +67,12 @@ if($room === null){
             <li><a class="relative" href="./squid-game.html" class="newRoom">Squid Game <div class="new">New</div></a></li>
             <li id="rooms"> Rooms 
               <ul class="under">
-                <li><a href="./chateau-ambulant.html">Le château ambulant</a></li>
-                <li><a href="./sousterrains.html">Les sous terrains de Bordeaux</a></li>
-                <li><a href="./chucky.html">Chucky</a></li>
-                <li><a href="./squid-game.html">Squid Game</a></li>
+			  <?php 
+				//petite boucle sur les rooms
+				foreach($rooms as $room_key => $infos_room) {
+					echo '<li><a href="get_room.php?room_id='. $room_key .'">'. $infos_room['name'] .'</a></li>'."\n\r";
+				}
+				?>
               </ul>
             </li>
 
@@ -81,10 +94,8 @@ if($room === null){
     
 
   <main class="rooms">
-    <h1><?= $room->getName(); ?></h1>
-    <p class="roomDescription">Mince, Hauru s’est fait capturer par l’armée.
-      Vous devez le libérer mais malheureusement la porte est fermée. Trouver la clé pour utiliser la porte magique afin de libérer Hauru. Faite vous aider par Calcifer et épouvantail enchanté. Mais attention de ne pas vous tromper car chaque erreur commise rapproche la Sorcière des Landes du château.
-    </p>
+    <h1 class="<?= $classLevel; ?>"><?= $room->getName(); ?></h1>
+    <p class="roomDescription"><?= $room->getDescription(); ?></p>
     <div class="roomMainFlex">
       <div class="video">
         <iframe src="https://www.youtube.com/embed/XDzvVBk2PIg" title="YouTube video player" frameborder="0"
@@ -95,20 +106,20 @@ if($room === null){
         <div class="infosSalles">
           <div class=" infoPeople">
             <div class="littleImage">
-              <img src="assets/img/icone_groupe.svg" alt="">
+              <img src="https://domenc-m.github.io/hackaton_team_1/src/assets/img/icone_groupe.svg" alt="">
             </div>
             <p>4-12 joueurs</p>
           </div>
           <div class=" infoTime">
             <div class="littleImage">
-              <img src="assets/img/icone_horloge.svg" alt="">
+              <img src="https://domenc-m.github.io/hackaton_team_1/src/assets/img/icone_horloge.svg" alt="">
             </div>
             <p>70 minutes</p>
           </div>
         </div>
     </div>
     <button class="btn-reserv">
-      <a class="">Reserver</a>
+      <a class="">Faire une réservation</a>
     </button>
 
   </main>
