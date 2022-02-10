@@ -16,6 +16,7 @@ function getRoomsFromDB(): array
 	$user = 'escape_game';
 	$password = 'Escape33!';
 	$conn = new PDO($dsn, $user , $password);
+	$conn->exec("set names utf8mb4");
 	
 	$array_rooms = [];
 	$sql = "SELECT * 
@@ -24,8 +25,9 @@ function getRoomsFromDB(): array
 	foreach($conn->query($sql) as $row) {
 
 		$room = new Room($row['name'], 
-		utf8_encode($row['description']), 
+		$row['description'], 
 		(int)$row['duration'],
+		(bool)$row['forbidden18yearOld'],
 		
 		);
 		
