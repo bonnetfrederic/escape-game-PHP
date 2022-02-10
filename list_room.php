@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'GET') {
 	error_response('Method is not allowed', 405);
 }
 
-
 $rooms = [
 	'data' => getRoomsFromDB(),
 	'meta' => [
@@ -16,5 +15,4 @@ $rooms = [
 		'max_page' 		=> 12,
 	],
 ];
-
 echo json_encode($rooms);

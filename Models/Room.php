@@ -8,14 +8,10 @@ class Room {
     private string $description;
     private int $duration;
     private bool $forbidden18yearOld;
-    private string $open;
     private string $niveau;
 	private int $min_player;
 	private int $max_player;
 
-    
-    private string $_readme;
-    
     public function __construct(
         string $p_name, 
         string $p_description,
@@ -84,7 +80,6 @@ class Room {
 		$sql = "INSERT INTO `rooms` (`name`, `description`, `duration`, `forbidden18yearOld`, `niveau`, `min_player`, `max_player`) 
                  VALUES             ('" . $this->name . "', 'sddfsdf', '60',          '0',              'Normal',       '2',       '12');";
 		
-		$pdo
 		echo $sql;
 	}
     
