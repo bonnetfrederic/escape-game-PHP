@@ -34,7 +34,10 @@ $rooms = getRoomsFromDB();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <title>Le Hangar Game</title>
+  <title>Le Hangar Game - <?php echo $room->getName(); ?></title>
+  <script type="css/style">
+  <?= $room->getCSSTemplate(); ?>
+  </script>
 </head>
 
 <body>
@@ -108,13 +111,13 @@ $rooms = getRoomsFromDB();
             <div class="littleImage">
               <img src="https://domenc-m.github.io/hackaton_team_1/src/assets/img/icone_groupe.svg" alt="">
             </div>
-            <p>4-12 joueurs</p>
+            <p><?= $room->getMinPlayer() . '-' . $room->getMaxPlayer(); ?> joueurs</p>
           </div>
           <div class=" infoTime">
             <div class="littleImage">
               <img src="https://domenc-m.github.io/hackaton_team_1/src/assets/img/icone_horloge.svg" alt="">
             </div>
-            <p>70 minutes</p>
+            <p><?php echo $room->getDuration(); ?> minutes</p>
           </div>
         </div>
     </div>

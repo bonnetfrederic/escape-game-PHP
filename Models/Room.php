@@ -39,9 +39,24 @@ class Room {
 		return $this->description;
 	}
 	
-	public function getNiveau() 
+	public function getNiveau() : string
 	{
 		return $this->niveau;
+	}
+	
+	public function getDuration(): int
+	{
+		return $this->duration;
+	}
+	
+	public function getMinPlayer(): int 
+	{
+		return $this->min_player;
+	}
+	
+	public function getMaxPlayer(): int 
+	{
+		return $this->max_player;
 	}
 	
     public function setName(string $value)
