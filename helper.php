@@ -30,7 +30,10 @@ function getRoomsFromDB(): array
 		(bool)$row['forbidden18yearOld'],
 		$row['niveau'],
 		(int)$row['min_player'],
-		(int)$row['max_player']
+		(int)$row['max_player'],
+		(int)$row['age'],
+		$row['img_css'],
+		(bool)$row['new'],
 		);
 		
 		$array_rooms[$row['id']] = $room->toArray();
@@ -60,7 +63,10 @@ function findRoomById(int $id): ?Room
 		(bool)$row['forbidden18yearOld'],
 		$row['niveau'],
 		(int)$row['min_player'],
-		(int)$row['max_player']
+		(int)$row['max_player'],
+		(int)$row['age'],
+		$row['img_css'],
+		(bool)$row['new'],
 		);
 		return $room;
 	} else {
