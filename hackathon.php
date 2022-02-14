@@ -198,7 +198,16 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
 			  ?>
                 <div class="resaHourLine" id="resaHour<?= $schedules[$i]->getId(); ?>">
                   <span class="resaHour"><?= $schedules[$i]->getHeure(); ?></span>
-                  <span class="resaAvailable">Réserver</span>
+				  
+				  <?php
+				  if(in_array($schedules[$i]->getId() , $bookings)) {
+					echo '<span class="resaUnavailable">Complet</span>';
+				  } else {
+					echo '<span class="resaAvailable">Réserver</span>';
+				  }
+				  ?>
+                  
+                  
                 </div>
 				<?php
 				
