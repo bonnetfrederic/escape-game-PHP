@@ -2,6 +2,16 @@
 
 declare(strict_types = 1);
 
+function connect_to_mysql(): PDO
+{
+	$dsn = 'mysql:dbname=escape_game;host=localhost;port=3307';
+	$user = 'escape_game';
+	$password = 'Escape33!';
+	$connection = new PDO($dsn, $user , $password);
+	$connection->exec("set names utf8mb4");
+	
+	return $connection;
+}
 
 function error_response(string $message, int $code = 422): void
 {
@@ -12,11 +22,7 @@ function error_response(string $message, int $code = 422): void
 
 function getRoomsFromDB(): array
 {
-	$dsn = 'mysql:dbname=escape_game;host=localhost;port=3307';
-	$user = 'escape_game';
-	$password = 'Escape33!';
-	$conn = new PDO($dsn, $user , $password);
-	$conn->exec("set names utf8mb4");
+	$conn = connect_to_mysql();
 	
 	$array_rooms = [];
 	$sql = "SELECT * 
@@ -44,11 +50,8 @@ function getRoomsFromDB(): array
 
 function findRoomById(int $id): ?Room
 {
-	$dsn = 'mysql:dbname=escape_game;host=localhost;port=3307';
-	$user = 'escape_game';
-	$password = 'Escape33!';
-	$conn = new PDO($dsn, $user , $password);
-	$conn->exec("set names utf8mb4");
+	
+	$conn = connect_to_mysql();
 	
 	$query = $conn->prepare("SELECT * 
 	        FROM `rooms`
@@ -74,3 +77,40 @@ function findRoomById(int $id): ?Room
 	}
 }
 	
+function getSchedulesFromDB(): array
+{
+	$conn = connect_to_mysql();
+	$schedules = [];
+	
+	$sql = "SELECT * 
+	        FROM schedule
+			ORDER BY heure ASC";
+	
+	foreach($conn->query($sql) as $row) {
+
+		$schedule = new Schedule((int)$row['id'], $row['heure']);
+		
+		$schedules[] = $schedule;
+	}
+	
+	return $schedules;
+}
+
+function getBookingsByDateAndRoom(int $room_id, string $date)
+{
+	$conn = connect_to_mysql();
+	$bookings = [];
+	
+	$query = $conn->prepare("
+		SELECT schedule_id 
+	    FROM booking
+		WHERE room_id = :room_id
+		AND date = :date"
+	);
+	
+	$query->execute([':room_id' => $room_id, ':date' => $date]);
+	foreach($query->fetchAll() as $row) {
+		$bookings[] = $row['schedule_id'];
+	}
+	return $bookings;
+}

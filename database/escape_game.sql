@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : ven. 11 fév. 2022 à 14:45
+-- Généré le : lun. 14 fév. 2022 à 08:14
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.0.13
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `escape_game`
 --
+CREATE DATABASE IF NOT EXISTS `escape_game` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `escape_game`;
 
 -- --------------------------------------------------------
 
