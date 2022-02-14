@@ -151,12 +151,13 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
     </section>
 
     <section id="resaSection">
+	<form action="booking.php?toto=2" method="POST">
       <div id="resaContainer">
         <h2 id="resaTitle">Réservation</h2>
         <div id="resaInputs">
           <div class="flexColCenter" id="resaInputsRoom">
             <label for="room-select">Quelle salle ?</label>
-            <select class="roundedInput" id="roomSelect">
+            <select class="roundedInput" name="roomSelect" id="roomSelect">
 			<?php
 			foreach($rooms as $room_key => $infos_room) {
 				echo '<option value="'.$room_key.'">'.$infos_room['name'].'</option>';
@@ -166,7 +167,7 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
           </div>
           <div class="flexColCenter" id="resaInputsPlayers">
             <label for="players-number">Combien de personnes ?</label>
-            <select class="roundedInput" id="playersNumber">
+            <select class="roundedInput" name="playersNumber" id="playersNumber">
               <!-- <option value="">-- Nombre de joueurs --</option> -->
               <option value="2">2 -- 26€/pers</option>
               <option value="3">3 -- 26€/pers</option>
@@ -183,7 +184,7 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
           </div>
           <div class="flexColCenter" id="resaInputsDate">
             <label for="game-date">Quand ?</label>
-            <input class="roundedInput" type="date" id="resaGameDate" value="2022-01-28" min="2022-01-28"
+            <input class="roundedInput" type="date" name="bookingDate" id="resaGameDate" value="2022-01-28" min="2022-01-28"
               max="2022-12-31">
           </div>
         </div>
@@ -191,6 +192,7 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
           <div id="resaAvailabilities">
             <div id="resaAvailabilitiesTitle">Disponibilités</div>
             <div class="resaHourContainer">
+			  <input type="hidden" value="" name="bookingTime" id="bookingTime"/>
               <div id="resaHoursContainer1">
 			  <?php 
 			  
@@ -203,7 +205,7 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
 				  if(in_array($schedules[$i]->getId() , $bookings)) {
 					echo '<span class="resaUnavailable">Complet</span>';
 				  } else {
-					echo '<span class="resaAvailable">Réserver</span>';
+					echo '<span class="resaAvailable" data-schedule-id="'.$schedules[$i]->getId().'">Réserver</span>';
 				  }
 				  ?>
                   
@@ -243,28 +245,28 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
                     <p id="recapDate"></p>
                   </div>
                   <h4>Quelques informations</h4>
-                  <form id="recapForm">
                     <div id="name" class="flexColLeft">
-                      <label for="recapFormName">Nom, Prénom</label>
-                      <input type="text" id="recapFormName">
+                      <label for="recapFormName">Firstname</label>
+                      <input type="text" name="customerFirstname" id="recapFormFirstname">
                     </div>
                     <div id="phone" class="flexColLeft">
-                      <label for="recapFormPhone">Téléphone</label>
-                      <input type="text" id="recapFormPhone">
+                      <label for="recapFormPhone">Lastname</label>
+                      <input type="text" name="customerLastname" id="recapFormLastname">
                     </div>
                     <div id="email" class="flexColLeft">
                       <label for="recapFormEmail">Mail</label>
-                      <input type="text" id="recapFormEmail">
+                      <input type="text" name="customerEmail" id="recapFormEmail">
                     </div>
-                  </form>
                 </div>
-                <button id="btnConfirmResa">Réserver</button>
+				
+                <input type="submit" value="Réserver"/>
               </div>
             </div>
           </div>
         </div>
       </div>
       </div>
+	  </form>
     </section>
     <section id="contact">
       <h2>CONTACT</h2>
@@ -285,7 +287,7 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
   </main>
   </main>
   <script src="https://bonnetfrederic.github.io/hackaton-1/js/toggle.js"></script>
-  <script src="https://bonnetfrederic.github.io/hackaton-1/js/index.js"></script>
+  <script src="js/index.js"></script>
   <footer>
       <div class="foot-nav">
         <div class="logo">
