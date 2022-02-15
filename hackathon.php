@@ -151,7 +151,7 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
     </section>
 
     <section id="resaSection">
-	<form action="booking.php?toto=2" method="POST">
+	<form action="booking.php" method="POST">
       <div id="resaContainer">
         <h2 id="resaTitle">Réservation</h2>
         <div id="resaInputs">
@@ -255,7 +255,7 @@ $bookings = getBookingsByDateAndRoom($selected_room, $date);
                     </div>
                     <div id="email" class="flexColLeft">
                       <label for="recapFormEmail">Mail</label>
-                      <input type="text" name="customerEmail" id="recapFormEmail">
+                      <input type="email" name="customerEmail" id="recapFormEmail">
                     </div>
                 </div>
 				

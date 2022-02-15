@@ -114,3 +114,24 @@ function getBookingsByDateAndRoom(int $room_id, string $date)
 	}
 	return $bookings;
 }
+
+function getPriceFromNbPlayer($nb_player): int {
+  $price = 0;
+  switch(true) {
+    case in_array($nb_player, range(2,4)):
+      $price = 26;
+    break;
+    case in_array($nb_player, range(5,9)):
+      $price = 22;
+    break;
+    case in_array($nb_player, range(10,12)): 
+      $price = 20;
+    break;
+ }
+
+ 
+	 
+ 
+ 
+ return $price * $nb_player;
+}
