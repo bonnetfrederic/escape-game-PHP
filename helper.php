@@ -76,7 +76,27 @@ function findRoomById(int $id): ?Room
 		return null;
 	}
 }
+
+function findScheduleById(int $id): ?Schedule
+{
 	
+	$conn = connect_to_mysql();
+	
+	$query = $conn->prepare("SELECT * 
+	        FROM `schedule`
+			WHERE id= :id");
+	
+	$query->execute([':id' => $id]);
+	if($row = $query->fetch()) {
+
+		$schedule = new Schedule((int)$row['id'], $row['heure'], 
+		);
+		return $schedule;
+	} else {
+		return null;
+	}
+}
+
 function getSchedulesFromDB(): array
 {
 	$conn = connect_to_mysql();

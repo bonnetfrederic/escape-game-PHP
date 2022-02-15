@@ -43,6 +43,8 @@ class Booking {
 			':nb_player' 	=> $this->nb_player,
 			':total_price'  => $this->total_price,
 			]);
+			
+			
 		
 		return $result;
 	}

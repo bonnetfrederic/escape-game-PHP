@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 require_once('Models/Customer.php');
 require_once('Models/Booking.php');
+require_once('Models/Schedule.php');
+require_once('Models/Room.php');
 require_once('helper.php');
 
 
@@ -30,6 +32,7 @@ $booking = new Booking(
   $price,
 );
 
+
 try {
 	$res = $booking->insert();
 	
@@ -42,5 +45,7 @@ try {
 catch(Exception $e){
 	if($e->getCode() == 23000) {
 		echo 'Ce créneau est déjà réservé !';
+	} else {
+		echo $e->getMessage();
 	}
 }
