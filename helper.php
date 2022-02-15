@@ -128,10 +128,6 @@ function getPriceFromNbPlayer($nb_player): int {
       $price = 20;
     break;
  }
-
- 
-	 
- 
  
  return $price * $nb_player;
 }

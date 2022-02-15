@@ -2,34 +2,45 @@
 
 declare(strict_types = 1);
 
-require('Models/Customer.php');
-require('Models/Booking.php');
-require('helper.php');
+require_once('Models/Customer.php');
+require_once('Models/Booking.php');
+require_once('helper.php');
 
-var_dump($_GET);
-var_dump($_POST);
 
 $firstname = $_POST['customerFirstname'];
 $lastname = $_POST['customerLastname'];
 $email = $_POST['customerEmail'];
 $customer = new Customer($firstname, $lastname, $email);
-var_dump($customer);
+$customer_id = $customer->insert();
 
-//$customer_id = $customer->insert();
-$schedule_id = $_POST['bookingTime'];
+
+$room_id = (int)$_POST['roomSelect'];
+$schedule_id = (int)$_POST['bookingTime'];
 $date = $_POST['bookingDate'];
-$nb_player = $_POST['playersNumber'];
+$nb_player = (int)$_POST['playersNumber'];
 
 $price = getPriceFromNbPlayer($nb_player);
-var_dump($price);
-$booking = new Booking(
-  1,
-  2,
-  $_POST['bookingDate'],
-  (int)$_POST['playersNumber'],
-  200,
-);
-var_dump($booking);
 
-//$booking->insert();
-die;
+$booking = new Booking(
+  $room_id,
+  $customer_id,
+  $schedule_id,
+  $date,
+  $nb_player,
+  $price,
+);
+
+try {
+	$res = $booking->insert();
+	
+	if($res) {
+		$schedule = findScheduleById($schedule_id);
+		$room = findRoomById($room_id);
+		echo 'Vous avez bien réservé la salle '.$room->getName().' à '.$schedule->getHeure().' le '.$date.' pour '.$nb_player .' personnes.';
+	}
+} 
+catch(Exception $e){
+	if($e->getCode() == 23000) {
+		echo 'Ce créneau est déjà réservé !';
+	}
+}

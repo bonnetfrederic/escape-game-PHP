@@ -1,6 +1,7 @@
 <?php 
-
 declare(strict_types = 1);
+
+require_once('helper.php');
 
 class Customer {
   private int $id;
@@ -32,9 +33,23 @@ class Customer {
         return $this->email;
     }
 	
-	public function insert(): int
+	public function insert(): ?int
 	{
+		$conn = connect_to_mysql();
 		
+		$query = $conn->prepare('INSERT INTO customers (firstname, lastname, email) 
+		          VALUES (:firstname, :lastname, :email);');
+		$result = $query->execute([
+			':firstname' => $this->firstname,
+			':lastname'  => $this->lastname,
+			':email'     => $this->email, 
+			]);
+		if($result) {
+			$this->id = (int)$conn->lastInsertId();
+			return $this->id;
+		} else {
+			return null;
+		}
 	}
 
   }
