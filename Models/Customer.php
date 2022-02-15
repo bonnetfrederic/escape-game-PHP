@@ -19,7 +19,15 @@ class Customer {
       $this->lastname = ucfirst(strtolower($p_lastname));
       $this->email = $p_email;
     }
-    
+    public function getId(): int
+	{
+		return $this->id;
+	}
+	
+	public function setId(int $value): void
+	{
+		$this->id = $value;
+	}
     public function getFirstname(): string
     {
         return ucfirst(strtolower($this->firstname));

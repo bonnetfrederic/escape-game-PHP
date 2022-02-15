@@ -97,6 +97,29 @@ function findScheduleById(int $id): ?Schedule
 	}
 }
 
+function findCustomerByEmail(string $email): ?Customer
+{
+	$conn = connect_to_mysql();
+	
+	$query = $conn->prepare("SELECT * 
+	        FROM `customers`
+			WHERE email = :email");
+	
+	$query->execute([':email' => $email]);
+	if($row = $query->fetch()) {
+
+		$customer = new Customer(
+			$row['firstname'], 
+			$row['lastname'], 
+			$row['email']
+		);
+		$customer->setId((int)$row['id']);
+		return $customer;
+	} else {
+		return null;
+	}
+}
+
 function getSchedulesFromDB(): array
 {
 	$conn = connect_to_mysql();

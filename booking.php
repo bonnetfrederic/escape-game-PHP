@@ -12,8 +12,15 @@ require_once('helper.php');
 $firstname = $_POST['customerFirstname'];
 $lastname = $_POST['customerLastname'];
 $email = $_POST['customerEmail'];
-$customer = new Customer($firstname, $lastname, $email);
-$customer_id = $customer->insert();
+$customer = findCustomerByEmail($email);
+
+if($customer == null) {
+	$customer = new Customer($firstname, $lastname, $email);
+	$customer_id = $customer->insert();
+} else {
+	$customer_id = $customer->getId();
+}
+
 
 
 $room_id = (int)$_POST['roomSelect'];
@@ -39,7 +46,7 @@ try {
 	if($res) {
 		$schedule = findScheduleById($schedule_id);
 		$room = findRoomById($room_id);
-		echo 'Vous avez bien réservé la salle '.$room->getName().' à '.$schedule->getHeure().' le '.$date.' pour '.$nb_player .' personnes.';
+		echo $customer_id . '-Vous avez bien réservé la salle '.$room->getName().' à '.$schedule->getHeure().' le '.$date.' pour '.$nb_player .' personnes.';
 	}
 } 
 catch(Exception $e){
