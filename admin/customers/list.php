@@ -1,39 +1,54 @@
-<?php 
+<?php
 session_start();
+require_once("../../helper.php");
+require_once("../../Models/Customer.php");
 
-if (!isset($_SESSION['isAdmin'])) {
-	header("Location: index.php?error_code=1");
-	exit;
-}
+$customers = getCustomersFromDB();
+// var_dump($customers);
+// die;
 ?>
+
 <html>
-	<head>
-	</head>
-	<body>
-		<h1>Nous sommes sur la liste des Clients</h1>
-		
-		<?php
-			include('../includes/menu.php');
-		?>
-		
-		<br/>
-		<table border="1">
-			<tr>
-				<th>Firstname</th>
-				<th>Lastname</th>
-				<th>Email</th>
-				<th>Action</th>
-			</tr>
-			<tr>
-				<td>Yann</td>
-				<td>Serinet</td>
-				<td>yann.srt@gmail.com</td>
-				<td>
-					<a href="customers/bookings.php">Voir les réservations</a>
-					<a href="customers/update.php">Modifier</a>
-					<a href="customers/delete.php">Supprimer</a>
-				</td>
-			</tr>
-		</table>
-	</body>
+
+<head>
+</head>
+
+<body>
+  <h1>Nous sommes sur la liste des Clients</h1>
+
+  <?php
+  include('../includes/menu.php');
+  ?>
+
+  <br />
+  <table border="1">
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+
+    <?php
+    foreach ($customers as $customer_key => $customer_info) {
+    ?>
+
+      <tr>
+        <td><?= $customer_info->getFirstname(); ?></td>
+        <td><?= $customer_info->getLastname(); ?></td>
+        <td><?= $customer_info->getEmail(); ?></td>
+        <td>
+          <a href="../bookings/list.php?customer_id=<?= $customer_info->getId(); ?>">Voir les réservations</a>
+          <a href="customers/update.php">Modifier</a>
+          <a href="customers/delete.php">Supprimer</a>
+        </td>
+      </tr>
+
+    <?php
+    }
+    ?>
+
+  </table>
+</body>
+
 </html>
