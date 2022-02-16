@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 16 fév. 2022 à 23:05
+-- Généré le : mer. 16 fév. 2022 à 23:16
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 7.4.26
 
@@ -122,8 +122,8 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`, `description`, `duration`, `forbidden18yearOld`, `niveau`, `min_player`, `max_player`, `new`, `age`, `alt_text`, `img_css`) VALUES
-(1, 'Le chateau ambulant', 'Dans cette épreuve, vous vous réveillez dans la chambre de HOWL, où vous devez trouver un moyen de sortir avant qu\'il ne revienne !\r\nDéjouez les pièges et les sortilèges, utilisez des objets magiques et enchantés pour vous délivrer.', 70, 0, 'Facile', 4, 12, 0, 17, 'Laissez-vous guider par CALCIFER, les novices en énigmes passeront un agréable moment et s\'amuseront dans un univers coloré et magique!\r\nAccessible à tous.', 'roomCard1Img'),
-(2, 'Chucky', 'Rejouez une des scènes culte du film CHUCKY, échappez à cette poupée maléfique au travers de casse-têtes macabres et sanglants !', 60, 1, 'Difficile', 4, 12, 0, 99, 'Ames sensibles s\'abstenir, frissons garantis, cette épreuve s\'adresse aux amateurs de frissons et de sensations fortes !\r\nAccessible à tous.', 'roomCard2Img'),
+(1, 'Le chateau ambulant', 'Dans cette épreuve, vous vous réveillez dans la chambre de HOWL, où vous devez trouver un moyen de sortir avant qu\'il ne revienne !\r\nDéjouez les pièges et les sortilèges, utilisez des objets magiques et enchantés pour vous délivrer.', 70, 0, 'Facile', 4, 12, 0, 16, 'Laissez-vous guider par CALCIFER, les novices en énigmes passeront un agréable moment et s\'amuseront dans un univers coloré et magique!\r\nAccessible à tous.', 'roomCard1Img'),
+(2, 'Chucky', 'Rejouez une des scènes culte du film CHUCKY, échappez à cette poupée maléfique au travers de casse-têtes macabres et sanglants !', 60, 1, 'Difficile', 4, 12, 0, 17, 'Ames sensibles s\'abstenir, frissons garantis, cette épreuve s\'adresse aux amateurs de frissons et de sensations fortes !\r\nAccessible à tous.', 'roomCard2Img'),
 (3, 'Star Wars', 'Dans cette nouvelle aventure, incarnez des rebelles prisonniers dans l\'Etoile Noire.\r\nEchappez-vous avant que vos alliés ne la fassent exploser.\r\nLaissez-vous guider par la voix des JEDI ou des SITH, à vous de choisir !\r\nLe compte à rebours commence !', 60, 0, 'Normal', 6, 8, 1, 16, 'Cette épreuve s\'adresse aux Jedi aguerris et aux joueurs expérimentés.\r\nToutefois libre à vous de tenter de défier l\'Empire, la force saura vous guider !\r\nAccessible à tous.', 'roomCard4Img'),
 (4, 'Les souterrains de Bordeaux', 'Les souterrains de Bordeaux regorgent de mystères et attendant d\'être explorés.\r\nPartez à l\'aventure, lancez-vous dans ce labyrinthe, et trouvez le trésor de la ville.\r\nEscaladez, rampez et déjouez les pièges, mais attention, la porte se referme au fur et à mesure, ne restez pas enfermés !', 70, 1, 'Difficile', 5, 7, 0, 18, 'Cette épreuve nécessite d\'avoir une certaine condition physique et peut ne pas convenir à tous mais nous pouvons vous proposer un parcours type.', 'roomCard3Img');
 
