@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once("../../helper.php");
 require_once("../../Models/Customer.php");
 
@@ -40,7 +41,7 @@ $customers = getCustomersFromDB();
         <td>
           <a href="../bookings/list.php?customer_id=<?= $customer_info->getId(); ?>">Voir les réservations</a>
           <a href="../customers/update.php?customer_id=<?= $customer_info->getId(); ?>">Modifier</a>
-          <a href="customers/delete.php">Supprimer</a>
+          <a href="../customers/delete.php?customer_id=<?= $customer_info->getId(); ?>">Supprimer</a>
         </td>
       </tr>
 
