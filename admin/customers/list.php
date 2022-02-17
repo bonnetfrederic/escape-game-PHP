@@ -5,8 +5,7 @@ require_once("../../helper.php");
 require_once("../../Models/Customer.php");
 
 $customers = getCustomersFromDB();
-// var_dump($customers);
-// die;
+$customer_id = (int)(($_GET['customer_id']) ?? 0);
 ?>
 
 <html>
@@ -24,10 +23,10 @@ $customers = getCustomersFromDB();
   <br />
   <table border="1">
     <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
+      <th>Prénom</th>
+      <th>Nom</th>
       <th>Email</th>
-      <th>Action</th>
+      <th>Actions</th>
     </tr>
 
     <?php
@@ -47,6 +46,8 @@ $customers = getCustomersFromDB();
 
     <?php
     }
+
+    if ($customer_id != 0) {echo '<p style="color: red">L\'utilisateur "' . getCustomerById($customer_id)->getFirstname() . ' ' . getCustomerById($customer_id)->getLastname() . '" a bien été mis à jour. </p>';}
     ?>
 
   </table>
