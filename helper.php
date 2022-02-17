@@ -194,7 +194,7 @@ function getBookingsFromDB(): array
   $bookings_array = [];
   $query = $conn->prepare("SELECT * FROM booking ORDER BY booking.date ASC");
   $query->execute();
-  
+
   foreach ($query->fetchAll() as $row) {
     $booking = new Booking(
       (int)$row['room_id'],
@@ -217,7 +217,7 @@ function getCustomersFromDB(): array
   $customers_array = [];
   $query = $conn->prepare("SELECT * FROM customers");
   $query->execute();
-  
+
   foreach ($query->fetchAll() as $row) {
     $customer = new Customer(
       $row['firstname'],
@@ -234,10 +234,11 @@ function getCustomersFromDB(): array
 function getCustomerById(int $customer_id): ?Customer
 {
   $conn = connect_to_mysql();
-  $query = $conn->prepare("SELECT * FROM `customers` WHERE customers.id = $customer_id");
+  $query = $conn->prepare("SELECT * FROM `customers` WHERE customers.id = :customer_id");
+
+  $query->execute([':customer_id' => $customer_id]);
   
-  if ($row = $query->execute()) {
-    foreach ($query->fetchAll() as $row) {
+  if ($row = $query->fetch()) {
     $customer = new Customer(
       $row['firstname'],
       $row['lastname'],
@@ -245,7 +246,6 @@ function getCustomerById(int $customer_id): ?Customer
     );
     $customer->setId((int)$row['id']);
     return $customer;
-  }
   } else {
     return null;
   }

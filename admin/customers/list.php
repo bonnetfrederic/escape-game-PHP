@@ -39,7 +39,7 @@ $customers = getCustomersFromDB();
         <td><?= $customer_info->getEmail(); ?></td>
         <td>
           <a href="../bookings/list.php?customer_id=<?= $customer_info->getId(); ?>">Voir les réservations</a>
-          <a href="customers/update.php">Modifier</a>
+          <a href="../customers/update.php?customer_id=<?= $customer_info->getId(); ?>">Modifier</a>
           <a href="customers/delete.php">Supprimer</a>
         </td>
       </tr>

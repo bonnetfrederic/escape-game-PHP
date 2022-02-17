@@ -34,9 +34,21 @@ class Customer
   {
     return ucfirst(strtolower($this->lastname));
   }
+  public function setLastname(string $lastname)
+  {
+    $this->lastname = $lastname;
+  }
+  public function setFirstname(string $firstname)
+  {
+    $this->firstname = $firstname;
+  }
   public function getEmail(): string
   {
     return $this->email;
+  }
+  public function setEmail(string $email)
+  {
+    $this->email = $email;
   }
   public function insert(): ?int
   {
@@ -55,5 +67,20 @@ class Customer
     } else {
       return null;
     }
+  }
+  public function update(): bool
+  {
+    $conn = connect_to_mysql();
+
+    $query = $conn->prepare(
+      "UPDATE `customers` SET `firstname` = :firstname, `lastname` = :lastname, `email` = :email WHERE `customers`.`id` = :id;");
+
+    $result = $query->execute([
+      ':lastname'     => $this->lastname,
+      ':firstname'    => $this->firstname,
+      ':email'        => $this->email,
+      ':id'           => $this->id
+    ]);
+    return $result;
   }
 }
