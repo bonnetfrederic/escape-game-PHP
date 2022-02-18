@@ -3,9 +3,14 @@ session_start();
 
 require_once("../../helper.php");
 require_once("../../Models/Customer.php");
+require_once("../../Models/Booking.php");
 
 $customers = getCustomersFromDB();
 $customer_id = (int)(($_GET['customer_id']) ?? 0);
+
+
+
+
 ?>
 
 <html>
@@ -31,6 +36,13 @@ $customer_id = (int)(($_GET['customer_id']) ?? 0);
 
     <?php
     foreach ($customers as $customer_key => $customer_info) {
+      $bookingsOfThisCustomer = getBookingsByCustomerId($customer_info->getId());
+      $hasBookings = (empty($bookingsOfThisCustomer)) ? false : true;
+      if ($hasBookings) {
+        $message = "alert('Ce client possèdes des résas!'); event.preventDefault();";
+      } else {
+        $message = "return confirm('Are you sure?')";
+      }
     ?>
 
       <tr>
@@ -40,17 +52,21 @@ $customer_id = (int)(($_GET['customer_id']) ?? 0);
         <td>
           <a href="../bookings/list.php?customer_id=<?= $customer_info->getId(); ?>">Voir les réservations</a>
           <a href="../customers/update.php?customer_id=<?= $customer_info->getId(); ?>">Modifier</a>
-          <a href="../customers/delete.php?customer_id=<?= $customer_info->getId(); ?>">Supprimer</a>
+          <a href="delete.php?customer_id=<?= $customer_info->getId(); ?>" onclick="<?= $message; ?>">Supprimer</a>
         </td>
       </tr>
 
     <?php
     }
 
-    if ($customer_id != 0) {echo '<p style="color: red">L\'utilisateur "' . getCustomerById($customer_id)->getFirstname() . ' ' . getCustomerById($customer_id)->getLastname() . '" a bien été mis à jour. </p>';}
+    if ($customer_id != 0) {
+      echo '<p style="color: red">L\'utilisateur "' . getCustomerById($customer_id)->getFirstname() . ' ' . getCustomerById($customer_id)->getLastname() . '" a bien été mis à jour. </p>';
+    }
     ?>
 
   </table>
+
 </body>
+
 
 </html>

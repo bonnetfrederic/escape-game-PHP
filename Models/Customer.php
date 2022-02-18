@@ -68,6 +68,18 @@ class Customer
       return null;
     }
   }
+  public function delete(): bool
+  {
+    $conn = connect_to_mysql();
+
+    $query = $conn->prepare(
+      "DELETE FROM `customers` WHERE `customers`.`id` = :id;");
+
+    $result = $query->execute([
+      ':id' => $this->id
+    ]);
+    return $result;
+  }
   public function update(): bool
   {
     $conn = connect_to_mysql();
