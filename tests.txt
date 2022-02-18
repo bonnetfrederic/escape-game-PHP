@@ -1,0 +1,40 @@
+// echo $customerCompleteName . (empty($bookingsOfThisCutomer) ? ' n\'a aucune réservation !' : ' a ' . sizeof($bookingsOfThisCutomer) . ' réservation(s).');
+
+
+<script type="text/javascript">
+  function confirmCustomerDeletion() {
+    var result = confirm("L'utilisateur <?php echo $customerCompleteName . (!$hasBookings ? ' n\'a aucune réservation !' : ' a ' . sizeof($bookingsOfThisCustomer) . ' réservation(s).');  ?> Voulez-vous vraiment supprimer cet utilisateur <?php echo (!$hasBookings ? '' : ' ainsi que l\'ensemble de ses réservations') ?>?");
+    if (result) {
+      // alert('$customer->delete();');
+      <?php
+        $customer->delete();
+        echo $customerCompleteName . ' a été supprimé.';
+      ?>
+    } else {
+      alert('on annule tout');
+      <?php echo "Rien n'a été supprimé."; ?>
+    }
+  }
+  confirmCustomerDeletion();
+</script>
+
+
+<?php 
+if ( ?> 
+
+<script type="text/javascript">$res</script> 
+
+<?php ) {}
+
+?>
+
+href="../customers/delete.php?customer_id=<?= $customer_info->getId(); ?>"
+
+
+UPDATE `booking` SET `schedule_id` = '1', `date` = '2022-03-03', `nb_player` = '5', `total_price` = '100' WHERE `booking`.`room_id` = 2 AND `booking`.`schedule_id` = 6 AND `booking`.`date` = '2022-02-28';
+
+UPDATE `booking` SET `schedule_id` = 2, `date` = `2022-04-01`, `nb_player` = 12, `total_price` = 260 WHERE `booking`.`id` = 12;
+UPDATE booking SET schedule_id = 2, date = '2022-04-01', nb_player = 12, total_price = 260 WHERE booking.id = 12;
+
+
+<option value="room1"><?= findRoomById($booking->getRoomId())->getName() ?></option>
