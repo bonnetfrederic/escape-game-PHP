@@ -5,12 +5,12 @@ require_once("../../Models/Customer.php");
 require_once("../../Models/Booking.php");
 
 $customer_id = (int)$_GET['customer_id'];
-$bookingsOfThisCustomer = getBookingsByCustomerId($customer_id);
+// $bookingsOfThisCustomer = getBookingsByCustomerId($customer_id);
 // var_dump($bookingsOfThisCustomer);
 // die;
 $customer = getCustomerById($customer_id);
-$customerCompleteName = '' . $customer->getFirstname() . ' ' . $customer->getLastname() . '';
-$hasBookings = (empty($bookingsOfThisCustomer)) ? false : true;
+// $customerCompleteName = '' . $customer->getFirstname() . ' ' . $customer->getLastname() . '';
+// $hasBookings = (empty($bookingsOfThisCustomer)) ? false : true;
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +31,5 @@ $hasBookings = (empty($bookingsOfThisCustomer)) ? false : true;
 
 </body>
 </html>
-
-
 
 <?php $customer->delete(); ?>

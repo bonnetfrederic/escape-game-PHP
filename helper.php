@@ -250,6 +250,28 @@ function getCustomerById(int $customer_id): ?Customer
     return null;
   }
 }
+function getBookingById(int $booking_id): ?Booking
+{
+  $conn = connect_to_mysql();
+  $query = $conn->prepare("SELECT * FROM `booking` WHERE booking.id = :booking_id");
+
+  $query->execute([':booking_id' => $booking_id]);
+  
+  if ($row = $query->fetch()) {
+    $booking = new Booking(
+      (int)$row['room_id'],
+      (int)$row['customer_id'],
+      (int)$row['schedule_id'],
+      $row['date'],
+      (int)$row['nb_player'],
+      (int)$row['total_price'],
+    );
+    $booking->setId((int)$row['id']);
+    return $booking;
+  } else {
+    return null;
+  }
+}
 
 function getBookingsByCustomerId($customer_id): array
 {

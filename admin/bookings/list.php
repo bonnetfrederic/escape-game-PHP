@@ -54,7 +54,7 @@ $bookings = ($customer_id == 0) ? getBookingsFromDB() : getBookingsByCustomerId(
         <td><?= $booking_info->getNbPlayer(); ?></td>
         <td><?= $booking_info->getTotalPrice(); ?></td>
         <td>
-          <a href="#">Modifier</a>
+          <a href="update.php?booking_id=<?= $booking_info->getId(); ?>">Modifier</a>
           <a href="#">Annuler</a>
         </td>
       </tr>

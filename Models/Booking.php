@@ -29,25 +29,49 @@ class Booking
   {
     return $this->room_id;
   }
+  public function setRoomId(int $room_id)
+  {
+    $this->room_id = $room_id;
+  }
   public function getCustomerId(): int
   {
     return $this->customer_id;
+  }
+  public function setCustomerId(int $customer_id)
+  {
+    $this->customer_id = $customer_id;
   }
   public function getDate(): string
   {
     return $this->date;
   }
+  public function setDate(string $date)
+  {
+    $this->date = $date;
+  }
   public function getScheduleId(): int
   {
     return $this->schedule_id;
+  }
+  public function setScheduleId(int $schedule_id)
+  {
+    $this->schedule_id = $schedule_id;
   }
   public function getNbPlayer(): int
   {
     return $this->nb_player;
   }
+  public function setNbPlayer(int $nb_player)
+  {
+    $this->nb_player = $nb_player;
+  }
   public function getTotalPrice(): int
   {
     return $this->total_price;
+  }
+  public function setTotalPrice(int $total_price)
+  {
+    $this->total_price = $total_price;
   }
   public function insert(): bool
   {
@@ -68,5 +92,25 @@ class Booking
   public function setId(int $value): void
   {
     $this->id = $value;
+  }
+  public function getId(): int
+  {
+    return $this->id;
+  }
+  public function update(): bool
+  {
+    $conn = connect_to_mysql();
+
+    $query = $conn->prepare(
+      "UPDATE `booking` SET `schedule_id` = :schedule_id, `date` = :date, `nb_player` = :nb_player, `total_price` = :total_price WHERE `booking`.`id` = :booking_id';");
+
+    $result = $query->execute([
+      ':schedule_id'  => $this->schedule_id,
+      ':date'         => $this->date,
+      ':nb_player'    => $this->nb_player,
+      ':total_price'  => $this->total_price,
+      ':booking_id'   => $this->id
+    ]);
+    return $result;
   }
 }

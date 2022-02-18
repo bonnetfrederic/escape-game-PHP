@@ -7,10 +7,6 @@ require_once("../../Models/Booking.php");
 
 $customers = getCustomersFromDB();
 $customer_id = (int)(($_GET['customer_id']) ?? 0);
-
-
-
-
 ?>
 
 <html>
@@ -39,7 +35,7 @@ $customer_id = (int)(($_GET['customer_id']) ?? 0);
       $bookingsOfThisCustomer = getBookingsByCustomerId($customer_info->getId());
       $hasBookings = (empty($bookingsOfThisCustomer)) ? false : true;
       if ($hasBookings) {
-        $message = "alert('Ce client possèdes des résas!'); event.preventDefault();";
+        $message = "alert('Ce client possède des résas!'); event.preventDefault();";
       } else {
         $message = "return confirm('Are you sure?')";
       }
@@ -67,6 +63,5 @@ $customer_id = (int)(($_GET['customer_id']) ?? 0);
   </table>
 
 </body>
-
 
 </html>
