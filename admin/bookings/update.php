@@ -7,10 +7,25 @@ require_once("../../Models/Room.php");
 
 $booking_id = (int)$_GET['booking_id'];
 $booking = getBookingById($booking_id);
+$rooms = getRoomsFromDB();
+$schedules = getSchedulesFromDB(); # list of all the schedules of a day
+// var_dump($schedules);
+$schedules_array = []; # transform th list into an array of schedules
+foreach($schedules as $sched_key => $sched_info) {
+  $schedules_array[] = (string)$sched_info->getId();
+}
+// var_dump($schedules_array);
+$unavailableSchedules = getBookingsByDateAndRoom($booking->getRoomId(), $booking->getDate()); # array of the booked schedules for this room at this date
+// var_dump($unavailableSchedules);
+$availablaSchedules = array_diff($schedules_array, $unavailableSchedules); # array of still available schedules for this room at this date
+// var_dump($availablaSchedules);
+// die;
 
+// if no booking selected, redirects to te default bookings list
 if ($booking == null) {
   header('Location: list.php');
 }
+// gets the form inputs data, launches the database update, and redirects to the updated bookings list
 if ($_POST != null) {
   $booking->setDate($_POST['date']);
   $booking->setScheduleID((int)$_POST['schedule_id']);
@@ -35,19 +50,12 @@ if ($_POST != null) {
 
   <h1>Mise à jour de la réservation</h1>
 
-  <?php
-  include('../includes/menu.php');
-  ?>
-  <br><br>
-
-  <?php
-  $rooms = getRoomsFromDB();
-  ?>
+  <?php include('../includes/menu.php'); ?><br><br>
 
   <form action="update.php?booking_id=<?= $booking_id ?>" method="POST">
     <label for="roomname">Salle</label>
     <select name="roomname" id="roomname">
-      <!-- boucle pour afficher les autres Room names -->
+      <!-- loop for displaying Room names, and sets the current room as 'selected' -->
       <?php
       foreach ($rooms as $room_key => $room_info) {
         if ((int)$room_key != (int)$booking->getRoomId()) {
@@ -59,13 +67,26 @@ if ($_POST != null) {
       ?>
     </select>
     <label for="date">Date</label>
-    <input type="text" name="date" id="date" value=<?= $booking->getDate(); ?>>
+    <input type="date" name="date" id="date" value=<?= $booking->getDate(); ?>>
     <label for="schedule">Heure</label>
-    <input type="text" name="schedule" id="schedule" value=<?= findScheduleById($booking->getscheduleId())->getHeure(); ?>>
+    <!-- <input type="text" name="schedule" id="schedule" value=<?= '';# findScheduleById($booking->getscheduleId())->getHeure(); ?>> -->
+    <select name="schedule" id="schedule">
+      <!-- loop for displaying available schedules in <option> form tags -->
+      <?php
+        foreach ($availablaSchedules as $key => $value) {
+          if ((string)$booking->getScheduleId() != $value) {
+            echo '<option value="">' . findScheduleById((int)$value)->getHeure() . '</option>';
+          } else  {
+            echo '<option value="" selected="selected">' . findScheduleById((int)$value)->getHeure() . '</option>';
+          }
+        }
+      ?>
+    </select>
     <label for="nbplayer">Nb joueurs</label>
     <input type="text" name="nbplayer" id="nbplayer" value=<?= $booking->getNbPlayer(); ?>>
     <label for="totalprice">Montant</label>
     <input type="text" name="totalprice" id="totalprice" value=<?= $booking->getTotalPrice(); ?>>
+
     <input type="submit" value="Mettre à jour">
   </form>
 </body>
