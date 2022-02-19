@@ -38,20 +38,3 @@ UPDATE booking SET schedule_id = 2, date = '2022-04-01', nb_player = 12, total_p
 
 
 <option value="room1"><?= findRoomById($booking->getRoomId())->getName() ?></option>
-
-
-
- <label for="schedule">Heure</label>
-    <!-- <input type="text" name="schedule" id="schedule" value=<?= '';# findScheduleById($booking->getscheduleId())->getHeure(); ?>> -->
-    <select name="schedule" id="schedule">
-      <!-- loop for displaying available schedules in <option> form tags -->
-      <?php
-        foreach ($availablaSchedules as $key => $value) {
-          if ((string)$booking->getScheduleId() != $value) {
-            echo '<option value="">' . findScheduleById((int)$value)->getHeure() . '</option>';
-          } else  {
-            echo '<option value="" selected="selected">' . findScheduleById((int)$value)->getHeure() . '</option>';
-          }
-        }
-      ?>
-    </select>

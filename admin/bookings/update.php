@@ -9,17 +9,12 @@ $booking_id = (int)$_GET['booking_id'];
 $booking = getBookingById($booking_id);
 $rooms = getRoomsFromDB();
 $schedules = getSchedulesFromDB(); # list of all the schedules of a day
-// var_dump($schedules);
 $schedules_array = []; # transform th list into an array of schedules
 foreach($schedules as $sched_key => $sched_info) {
   $schedules_array[] = (string)$sched_info->getId();
 }
-// var_dump($schedules_array);
 $unavailableSchedules = getBookingsByDateAndRoom($booking->getRoomId(), $booking->getDate()); # array of the booked schedules for this room at this date
-// var_dump($unavailableSchedules);
 $availablaSchedules = array_diff($schedules_array, $unavailableSchedules); # array of still available schedules for this room at this date
-// var_dump($availablaSchedules);
-// die;
 
 // if no booking selected, redirects to te default bookings list
 if ($booking == null) {
